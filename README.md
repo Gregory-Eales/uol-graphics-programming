@@ -1,2 +1,2 @@
-# UOL-Graphics-Midterm
+# UOL-Graphics-Programming
  as apart of the UOL Graphics Programming course
