@@ -9,10 +9,28 @@ function draw() {
     speed = frameCount;
 
     push();
+  
     translate(width/2, height/2);
+    
+    // Sun
+    rotate(radians(speed/3));
+    celestialObj(color(255,150,0), 300);
+    
+    // Earth
 
-    celestialObj(color(255,150,0), 300); // SUN
+    rotate(radians(speed));
+    translate(200, 0);
+    rotate(radians(speed));
+    celestialObj(color(0,0,255), 80);
 
+    // Moon
+    rotate(radians(-speed*2));
+    translate(100, 0)
+
+   
+    
+    celestialObj(color(255,255,255), 20);
+    
 
     pop();
 }
