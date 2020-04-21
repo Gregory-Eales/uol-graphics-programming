@@ -24,8 +24,13 @@ class Spaceship {
         this.location.x, this.location.y - this.size/2);
   }
 
+  //moves all asteroids
   move(){
-      // YOUR CODE HERE (4 lines)
+    this.velocity.limit(this.maxVelocity);
+    this.velocity.add(this.acceleration);
+    this.location.add(this.velocity);
+    this.acceleration = new createVector(0, 0);
+    
   }
 
   applyForce(f){
@@ -37,13 +42,13 @@ class Spaceship {
         this.applyForce(createVector(-0.1, 0));
       }
       if (keyIsDown(RIGHT_ARROW)){
-      // YOUR CODE HERE (1 line)
+        this.applyForce(createVector(0.1, 0));
       }
       if (keyIsDown(UP_ARROW)){
-      // YOUR CODE HERE (1 line)
+        this.applyForce(createVector(0, -0.1));
       }
       if (keyIsDown(DOWN_ARROW)){
-      // YOUR CODE HERE (1 line)
+        this.applyForce(createVector(0, 0.1));
       }
   }
 
@@ -60,5 +65,8 @@ class Spaceship {
 
   setNearEarth(){
     //YOUR CODE HERE (6 lines approx)
+    
+    this.applyForce(new createVector(0, 0.05));
+    this.applyForce(-this.velocity/30);
   }
 }
