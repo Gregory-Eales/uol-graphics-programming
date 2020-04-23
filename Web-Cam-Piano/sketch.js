@@ -2,11 +2,12 @@
 // BACKGROUND SUBTRACTION EXAMPLE *
 // ********************************
 var video;
-var backImg;
+var prevImg;
 var diffImg;
 var currImg;
 var thresholdSlider;
 var threshold;
+
 
 function setup() {
     createCanvas(640 * 2, 480);
@@ -16,6 +17,7 @@ function setup() {
 
     thresholdSlider = createSlider(0, 255, 50);
     thresholdSlider.position(20, 20);
+    grid = new Grid(640,480);
 }
 
 function draw() {
@@ -24,14 +26,19 @@ function draw() {
 
     currImg = createImage(video.width, video.height);
     currImg.copy(video, 0, 0, video.width, video.height, 0, 0, video.width, video.height);
-
+    
+    currImg.resize(currImg.width/4, currImg.height/4);
+    currImg.filter(BLUR, 3)
+    
     diffImg = createImage(video.width, video.height);
     diffImg.loadPixels();
+    
+    diffImg.resize(diffImg.width/4, diffImg.height/4);
 
     threshold = thresholdSlider.value();
 
-    if (typeof backImg !== 'undefined') {
-        backImg.loadPixels();
+    if (typeof prevImg !== 'undefined') {
+        prevImg.loadPixels();
         currImg.loadPixels();
         for (var x = 0; x < currImg.width; x += 1) {
             for (var y = 0; y < currImg.height; y += 1) {
@@ -40,9 +47,9 @@ function draw() {
                 var greenSource = currImg.pixels[index + 1];
                 var blueSource = currImg.pixels[index + 2];
 
-                var redBack = backImg.pixels[index + 0];
-                var greenBack = backImg.pixels[index + 1];
-                var blueBack = backImg.pixels[index + 2];
+                var redBack = prevImg.pixels[index + 0];
+                var greenBack = prevImg.pixels[index + 1];
+                var blueBack = prevImg.pixels[index + 2];
 
                 var d = dist(redSource, greenSource, blueSource, redBack, greenBack, blueBack);
 
@@ -66,11 +73,16 @@ function draw() {
     noFill();
     stroke(255);
     text(threshold, 160, 35);
+    
+    prevImg = createImage(currImg.width, currImg.height);
+    prevImg.copy(currImg, 0, 0, currImg.width, currImg.height, 0, 0, currImg.width, currImg.height);
+    
+    grid.run(diffImg);
 }
 
 function keyPressed() {
-    backImg = createImage(currImg.width, currImg.height);
-    backImg.copy(currImg, 0, 0, currImg.width, currImg.height, 0, 0, currImg.width, currImg.height);
+    prevImg = createImage(currImg.width, currImg.height);
+    prevImg.copy(currImg, 0, 0, currImg.width, currImg.height, 0, 0, currImg.width, currImg.height);
     console.log("saved new background");
 }
 
