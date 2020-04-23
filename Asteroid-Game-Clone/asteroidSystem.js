@@ -16,7 +16,7 @@ class AsteroidSystem {
 
   // spawns asteroid at random intervals
   spawn(){
-    if (random(1)<0.01){
+    if (random(1)<0.01+frameCount/20000){
       this.accelerations.push(new createVector(0,random(0.1,1)));
       this.velocities.push(new createVector(0, 0));
       this.locations.push(new createVector(random(width), 0));
