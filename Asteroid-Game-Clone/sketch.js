@@ -5,6 +5,7 @@ var atmosphereSize;
 var earthLoc;
 var earthSize;
 var starLocs = [];
+var score = 0;
 
 //////////////////////////////////////////////////
 function setup() {
@@ -23,6 +24,10 @@ function setup() {
 function draw() {
   background(0);
   sky();
+  
+  fill(255);
+  textSize(32);
+  text("Score: " + score, 1000, 30);
 
   spaceship.run();
   asteroids.run();
@@ -81,8 +86,9 @@ function checkCollisions(spaceship, asteroids){
     for(var i=0; i<asteroids.locations.length; i++){
       for(var j=0; j<spaceship.bulletSys.bullets.length; j++){
         if(isInside(spaceship.bulletSys.bullets[j], spaceship.bulletSys.diam, asteroids.locations[i], asteroids.diams[i])){
-          asteroids.destroy(i)
-          spaceship.bulletSys.bullets.splice(j, 1)
+            asteroids.destroy(i)
+            spaceship.bulletSys.bullets.splice(j, 1)
+            score += 1;
         }
       }
     }
