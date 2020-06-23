@@ -26,10 +26,8 @@ function draw() {
     // Moon
     rotate(radians(-speed*2));
     translate(100, 0)
-
-   
     
-    celestialObj(color(255,255,255), 20);
+    celestialObj(color(255,255,255), 30);
     
 
     pop();
