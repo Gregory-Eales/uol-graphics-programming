@@ -14,12 +14,12 @@ function draw() {
     
     // Sun
     rotate(radians(speed/3));
-    celestialObj(color(255,150,0), 300);
+    celestialObj(color(255,150,0), 200);
     
     // Earth
 
     rotate(radians(speed));
-    translate(200, 0);
+    translate(300, 0);
     rotate(radians(speed));
     celestialObj(color(0,0,255), 80);
 
