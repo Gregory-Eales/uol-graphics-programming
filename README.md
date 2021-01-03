@@ -1,5 +1,5 @@
 # UOL-Graphics-Programming
- as apart of the UOL Graphics Programming course
+ as a part of the UOL Graphics Programming course
 
 
 <p float="center">
